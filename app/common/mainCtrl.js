@@ -12,6 +12,9 @@ angular.module("flipzone")
             if (type == "home") {
                 $scope.contentUrl = "app/templates/home.html";
             }
+            if (type == "products") {
+                $scope.contentUrl = "app/templates/products.html";
+            }
         };
 
 }]);
