@@ -1,5 +1,5 @@
 //Module declaration.
-angular.module("flipzone", ["register", "login", "home", "products"]);
+angular.module("flipzone", ["register", "login", "home", "products","cart"]);
 
 angular.module("flipzone")
     .config(function () {

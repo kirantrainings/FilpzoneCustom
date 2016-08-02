@@ -1,4 +1,4 @@
-<div ng-controller="productCtrl">
+<div ng-controller="cartCtrl">
 
     <table class="table table-striped">
         <tr>
@@ -7,12 +7,11 @@
             <td>Description</td>
             <td>Price</td>
         </tr>
-        <tr ng-repeat="product in products">
+        <tr ng-repeat="product in cartProducts">
             <td>{{$index+1}}</td>
             <td>{{product.model}}</td>
             <td>{{product.description}}</td>
             <td>{{product.price|currency :"Rs."}}</td>
-                <td><button class="btn btn-primary" ng-click="selectProduct(product)">Select</button></td>
         </tr>
     </table>
 

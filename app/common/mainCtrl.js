@@ -15,6 +15,9 @@ angular.module("flipzone")
             if (type == "products") {
                 $scope.contentUrl = "app/templates/products.html";
             }
+             if (type == "cart") {
+                $scope.contentUrl = "app/templates/cart.html";
+            }
         };
 
 }]);
