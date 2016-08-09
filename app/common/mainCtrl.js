@@ -1,5 +1,5 @@
 angular.module("flipzone")
-    .controller("mainCtrl", ["$scope", function ($scope) {
+    .controller("mainCtrl", ["$scope", function ($scope,) {
         var template = "app/templates/";
         $scope.headerUrl = "app/templates/header.html";
         $scope.loadContent = function (type) {
@@ -19,5 +19,7 @@ angular.module("flipzone")
                 $scope.contentUrl = "app/templates/cart.html";
             }
         };
+        
+        
 
 }]);
