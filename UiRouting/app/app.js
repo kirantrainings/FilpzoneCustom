@@ -1,4 +1,4 @@
-angular.module("flipzone", ["ui.router", "login","authenticate","main"]);
+angular.module("flipzone", ["ui.router", "login","authenticate","main","products"]);
 
 angular.module("flipzone")
     .config(function (
@@ -16,8 +16,14 @@ angular.module("flipzone")
             templateUrl: "app/templates/register.html",
             url: "register"
         };
+    var productsObj = {
+            templateUrl: "app/templates/products.html",
+            url: "products",
+           controller:"productCtrl"
+        };
         $stateProvider.state("home", homeObj);
         $stateProvider.state("login", loginObj);
         $stateProvider.state("register", registerObj);
+    $stateProvider.state("products", productsObj);
 
     });

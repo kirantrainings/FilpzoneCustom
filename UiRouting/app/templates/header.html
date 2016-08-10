@@ -14,8 +14,7 @@
         <ul class="nav navbar-nav" ng-if="userDetails.isLoggedIn">
             <li class="active" ui-sref="home"><a href="#">Home</a></li>
             <li ui-sref="products"><a href="#">Products</a></li>
-             <li ui-sref="cart"><a href="">Cart</a></li>
-
+         
         </ul>
         <form role="search" class="navbar-form navbar-left">
             <div class="form-group">
@@ -30,6 +29,10 @@
          <ul class="nav navbar-nav navbar-right" ng-if="userDetails.isLoggedIn">
             <li><a href="#">{{userDetails.firstName}}, {{userDetails.lastName}}</a></li>
             <li ng-click="logout()"><a href="">Logout</a></li>
+               <li>   <a href="#">
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+            {{itemCount}}</a></li>
+
            
         </ul>
     </div>
