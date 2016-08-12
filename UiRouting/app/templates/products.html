@@ -1,18 +1,42 @@
 <div>
+    <div class="row">
+        <div class="col-xs-3">
+            <input type="text" class="form-control" placeholder="Search Products" ng-model="search">
+        </div>
+    </div>
+    <br>
     <table class="table table-striped">
         <tr>
             <td>S.No</td>
             <td>Name</td>
-            <td>Description</td>
-            <td>Price</td>
+            <td>Description
+                <a href="#" ng-click="changeCriteria()">
+                    <span  class="glyphicon glyphicon-triangle-top"></span>
+                    <span  class="glyphicon glyphicon-triangle-bottom"></span>
+                </a>
+            </td>
+            <td>Price
+                <a href="#" ng-click="changeCriteria()">
+                    <span  class="glyphicon glyphicon-triangle-top"></span>
+                    <span  class="glyphicon glyphicon-triangle-bottom"></span>
+                </a>
+            </td>
         </tr>
-        <tr ng-repeat="product in products">
+        <!-- <tr ng-repeat="product in products|filter:search">-->
+        <tr ng-repeat="product in 
+                           products
+                       |filter:{description:search}
+                       |orderBy:sortCriteria">
             <td>{{$index+1}}</td>
-            <td>{{product.model}}</td>
-            <td>{{product.description}}</td>
+            <td>{{product.model|uppercase}}</td>
+            <td>{{product.description|limitTo:10}}</td>
             <td>{{product.price|currency :"Rs."}}</td>
-                <td><button class="btn btn-primary" ng-click="selectProduct(product)">Select</button></td>
+            <td>
+                <button class="btn btn-primary" ng-click="selectProduct(product)">Select</button>
+            </td>
         </tr>
     </table>
-
+<ul uib-pagination total-items="totalItems"
+     ng-change="pageChanged()"
+    ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>
 </div>

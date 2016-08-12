@@ -1,4 +1,4 @@
-angular.module("flipzone", ["ui.router", "login","authenticate","main","products"]);
+angular.module("flipzone", ["ui.router", "login","authenticate","main","products","ui.bootstrap"]);
 
 angular.module("flipzone")
     .config(function (
