@@ -36,7 +36,11 @@
             </td>
         </tr>
     </table>
-<ul uib-pagination total-items="totalItems"
+<ul uib-pagination total-items="pager.totalItems"
      ng-change="pageChanged()"
-    ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>
+    ng-model="pager.currentPage" 
+    max-size="pager.maxSize"
+    class="pagination-sm" 
+    boundary-links="pager.showBoundaryLinks" 
+    num-pages="pager.numberOfPages"></ul>
 </div>

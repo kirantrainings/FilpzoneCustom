@@ -3,11 +3,21 @@ angular.module("products")
                                 function ($scope, productSvc, $rootScope) {
 
             // var promises = productSvc.getProducts();
+            $scope.pager = {
+                currentPage:1,
+                showBoundaryLinks:true,
+                totalItems:30,
+                numberOfPages:3,
+                maxSize:3
+                
+            };
             $scope.sortCriteria = "description";
             productSvc.getProducts()
                 .then(function (response) {
-                    $scope.completeProducts = response;
-
+                    $scope.totalProducts = response;
+                $scope.products= angular.copy(response);
+                $scope.pager.totalItems=$scope.totalProducts.length;
+                    
                     $scope.pageChanged();
                 })
                 .catch(function (response) {
@@ -36,18 +46,17 @@ angular.module("products")
             };
 
 
-            $scope.totalItems = 100;
-            $scope.currentPage = 1;
-            $scope.itemsPerPage=2;
-            $scope.maxSize = 2;
-            $scope.numPages = 2;
+
 
             $scope.setPage = function (pageNo) {
                 $scope.currentPage = pageNo;
             };
             $scope.pageChanged = function () {
-                console.log($scope.currentPage);
-                $scope.products = $scope.completeProducts.slice(($scope.currentPage - 1) * 2, 2);
+                var currentPageNumber= $scope.pager.currentPage;
+                
+                var startIndex = (currentPageNumber-1)*10+1;
+                var endIndex = currentPageNumber*10;
+                $scope.products= $scope.totalProducts.slice(startIndex,endIndex);               
             };
 
 }]);

@@ -16,24 +16,28 @@
             <li ui-sref="products"><a href="#">Products</a></li>
          
         </ul>
-        <form role="search" class="navbar-form navbar-left">
+        <div role="search" class="navbar-form navbar-left">
             <div class="form-group">
-                <input type="text" placeholder="Search" class="form-control">
+               <select ng-change="changeLanguage(selectedLanguage.code)"
+                       ng-options ="country.countryName for country in countries"
+                       ng-model="selectedLanguage"></select>
             </div>
-        </form>
+        </div>
         <ul class="nav navbar-nav navbar-right" ng-if="!userDetails.isLoggedIn">
-            <li ui-sref="register"><a href="#">Register</a></li>
-            <li ui-sref="login"><a href="">Login</a></li>
+            <li ui-sref="register"><a href="#">{{'REGISTER'|translate}}</a></li>
+            <li ui-sref="login"><a href="">{{ 'LOGIN' | translate }}</a></li>
            
         </ul>
          <ul class="nav navbar-nav navbar-right" ng-if="userDetails.isLoggedIn">
             <li><a href="#">{{userDetails.firstName}}, {{userDetails.lastName}}</a></li>
-            <li ng-click="logout()"><a href="">Logout</a></li>
+            <li ng-click="logout()"><a href="">{{'LOGOUT'|translate}}</a></li>
                <li>   <a href="#">
           <span class="glyphicon glyphicon-shopping-cart"></span>
             {{itemCount}}</a></li>
 
            
+        </ul>
+        <ul>
         </ul>
     </div>
 </nav>

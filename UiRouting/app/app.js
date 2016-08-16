@@ -1,8 +1,8 @@
-angular.module("flipzone", ["ui.router", "login","authenticate","main","products","ui.bootstrap"]);
+angular.module("flipzone", ["ui.router", "login", "authenticate", "main", "products", "ui.bootstrap", "pascalprecht.translate"]);
 
 angular.module("flipzone")
     .config(function (
-        $stateProvider, $urlRouterProvider) {
+        $stateProvider, $urlRouterProvider, $translateProvider) {
         var homeObj = {
             templateUrl: "app/templates/home.html",
             url: "home"
@@ -16,14 +16,35 @@ angular.module("flipzone")
             templateUrl: "app/templates/register.html",
             url: "register"
         };
-    var productsObj = {
+        var productsObj = {
             templateUrl: "app/templates/products.html",
             url: "products",
-           controller:"productCtrl"
+            controller: "productCtrl"
         };
         $stateProvider.state("home", homeObj);
         $stateProvider.state("login", loginObj);
         $stateProvider.state("register", registerObj);
-    $stateProvider.state("products", productsObj);
+        $stateProvider.state("products", productsObj);
+
+
+        $translateProvider.translations('en', {
+            TITLE: 'Hello',
+            FOO: 'This is a paragraph.',
+            BUTTON_LANG_EN: 'english',
+            BUTTON_LANG_DE: 'german',
+            LOGIN: "Login",
+            LOGOUT: "Logout",
+            REGISTER: "Register"
+        });
+        $translateProvider.translations('de', {
+            TITLE: 'Hallo',
+            FOO: 'Dies ist ein Paragraph.',
+            BUTTON_LANG_EN: 'englisch',
+            BUTTON_LANG_DE: 'deutsch',
+            LOGOUT: "Ausloggen",
+            LOGIN: "Anmeldung",
+            REGISTER: "Neu registrieren"
+        });
+        $translateProvider.preferredLanguage('en');
 
     });
