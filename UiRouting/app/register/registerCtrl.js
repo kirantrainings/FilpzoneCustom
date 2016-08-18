@@ -67,4 +67,8 @@ angular.module("register")
                 $scope.enableButton = false;
             }
         };
+        
+        $scope.config ={
+            maxDate:0
+        };
     }]);
