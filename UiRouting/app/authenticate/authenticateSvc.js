@@ -65,4 +65,8 @@ angular.module("authenticate")
     this.register= function(data){
         
     };
+    
+    this.checkUserExists = function(username){
+       return _.find(usersList,{username:username});
+    };
 }]);

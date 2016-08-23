@@ -25,11 +25,14 @@ angular.module("main")
         
          $scope.changeLanguage = function (key) {
     $translate.use(key);
+             
   };
         $scope.logout = function () {
             $scope.userDetails = authenticateSvc.logout();
             $state.go("login");
 
         };
+        
+        $scope.companyLogo="/images/volks.jpg";
 
 }]);
