@@ -1,3 +1,76 @@
+angular.module("authenticate",[]);
+angular.module("authenticate")
+.service("authenticateSvc",[function(){
+    
+    var usersList
+    =[{"username":"kiran",
+                 "password":"kiran",
+                   "firstName":"Kiran",
+                "lastName":"PVS",
+                "role":"Admin"},
+               {"username":"Aishwarya",
+                 "password":"Aishwarya",
+                   "firstName":"Aishwarya",
+                "lastName":"B",
+                "role":"consumer"},
+                  {"username":"chiranjeevi",
+                 "password":"chiranjeevi",
+                   "firstName":"chiranjeevi",
+                "lastName":"K",
+                "role":"Seller"},
+               ];
+    //login
+    //logout
+    //registration.
+    var userDetails={
+        isLoggedIn:false,
+        firstName:"",
+        lastName:"",
+        role:""
+    };
+    var resetUser=function(){
+                 userDetails.isLoggedIn=false;
+                userDetails.firstName = "";
+                userDetails.lastName="";
+                userDetails.role="";
+    };
+    
+    var validateUser=function(user){
+        
+        var data = _.find(usersList,user);
+            if(data){
+                userDetails.isLoggedIn=true;
+                userDetails.firstName = data.firstName;
+                userDetails.lastName=data.lastName;
+                userDetails.role=data.role;
+            }
+        else{
+            resetUser();  
+        }
+        
+    };
+    
+    this.login= function(user){
+        validateUser(user);
+        return userDetails;
+    };
+    
+    this.logout=function(){
+     resetUser();
+        return userDetails;
+    };
+    
+    this.getUserDetails= function(){
+        return userDetails;
+    };
+    this.register= function(data){
+        
+    };
+    
+    this.checkUserExists = function(username){
+       return _.find(usersList,{username:username});
+    };
+}]);
 angular.module("components",[]);
 angular.module("components")
     .directive("nbAlphabets", [function () {
@@ -131,79 +204,6 @@ angular.module("components")
     }
     
 }]);
-angular.module("authenticate",[]);
-angular.module("authenticate")
-.service("authenticateSvc",[function(){
-    
-    var usersList
-    =[{"username":"kiran",
-                 "password":"kiran",
-                   "firstName":"Kiran",
-                "lastName":"PVS",
-                "role":"Admin"},
-               {"username":"Aishwarya",
-                 "password":"Aishwarya",
-                   "firstName":"Aishwarya",
-                "lastName":"B",
-                "role":"consumer"},
-                  {"username":"chiranjeevi",
-                 "password":"chiranjeevi",
-                   "firstName":"chiranjeevi",
-                "lastName":"K",
-                "role":"Seller"},
-               ];
-    //login
-    //logout
-    //registration.
-    var userDetails={
-        isLoggedIn:false,
-        firstName:"",
-        lastName:"",
-        role:""
-    };
-    var resetUser=function(){
-                 userDetails.isLoggedIn=false;
-                userDetails.firstName = "";
-                userDetails.lastName="";
-                userDetails.role="";
-    };
-    
-    var validateUser=function(user){
-        
-        var data = _.find(usersList,user);
-            if(data){
-                userDetails.isLoggedIn=true;
-                userDetails.firstName = data.firstName;
-                userDetails.lastName=data.lastName;
-                userDetails.role=data.role;
-            }
-        else{
-            resetUser();  
-        }
-        
-    };
-    
-    this.login= function(user){
-        validateUser(user);
-        return userDetails;
-    };
-    
-    this.logout=function(){
-     resetUser();
-        return userDetails;
-    };
-    
-    this.getUserDetails= function(){
-        return userDetails;
-    };
-    this.register= function(data){
-        
-    };
-    
-    this.checkUserExists = function(username){
-       return _.find(usersList,{username:username});
-    };
-}]);
 angular.module("login",[]);
 angular.module("login")
     .controller("loginCtrl", ["$scope","authenticateSvc","$state","$rootScope", function ($scope,authenticateSvc,$state,$rootScope) {
@@ -260,6 +260,88 @@ angular.module("main")
         $scope.companyLogo="/images/volks.jpg";
 
 }]);
+
+angular.module("register", []);
+
+
+angular.module("register")
+    .config(function() {
+        console.log("Hey I am the register Module");
+    });
+angular.module("register")
+    .controller("registerCtrl", ["$scope", function ($scope) {
+        $scope.registerUser = {};
+        $scope.register = function () {
+            if ($scope.selectedCountry) {
+                $scope.registerUser.country = $scope.selectedCountry.code;
+            }
+            console.log($scope.registerUser);
+        };
+        $scope.countries = [{
+                "name": "India",
+                "code": "IN",
+                "phonecode": "+91"
+        },
+            {
+                "name": "United States",
+                "code": "US",
+                "phonecode": "+1"
+                          }];
+
+        var states = [{
+                "stateName": "Telangana",
+                "stateCode": "TG",
+                "countryCode": "IN"
+            },
+
+            {
+                "stateName": "New York",
+                "stateCode": "NY",
+                "countryCode": "US"
+            },
+            {
+                "stateName": "Andhra Pradesh",
+                "stateCode": "AP",
+                "countryCode": "IN"
+            },
+
+            {
+                "stateName": "Las Vegas",
+                "stateCode": "LS",
+                "countryCode": "US"
+            }
+                     ];
+        $scope.phonePattern = "/^\d+$/";
+        $scope.loadStates = function () {
+            if ($scope.selectedCountry.code == "US") {
+                $scope.phonePattern = "^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$"
+            } else {
+                $scope.phonePattern = "/^\d+$/"
+            }
+
+            $scope.states = [];
+            angular.forEach(states, function (item) {
+                if (item.countryCode == $scope.selectedCountry.code) {
+                    $scope.states.push(item);
+                }
+            });
+        };
+        $scope.groupedStates = states;
+
+
+
+        $scope.checkFields = function () {
+            if ($scope.registerUser.firstName && $scope.registerUser.lastName && $scope.registerUser.age && $scope.registerUser.gender && $scope.registerUser.terms) {
+                $scope.enableButton = true;
+            } else {
+                $scope.enableButton = false;
+            }
+        };
+        
+        $scope.config ={
+            maxDate:0
+        };
+    }]);
 
 angular.module("products", []);
 
@@ -361,88 +443,6 @@ angular.module("products")
             };
 
 }]);
-
-angular.module("register", []);
-
-
-angular.module("register")
-    .config(function() {
-        console.log("Hey I am the register Module");
-    });
-angular.module("register")
-    .controller("registerCtrl", ["$scope", function ($scope) {
-        $scope.registerUser = {};
-        $scope.register = function () {
-            if ($scope.selectedCountry) {
-                $scope.registerUser.country = $scope.selectedCountry.code;
-            }
-            console.log($scope.registerUser);
-        };
-        $scope.countries = [{
-                "name": "India",
-                "code": "IN",
-                "phonecode": "+91"
-        },
-            {
-                "name": "United States",
-                "code": "US",
-                "phonecode": "+1"
-                          }];
-
-        var states = [{
-                "stateName": "Telangana",
-                "stateCode": "TG",
-                "countryCode": "IN"
-            },
-
-            {
-                "stateName": "New York",
-                "stateCode": "NY",
-                "countryCode": "US"
-            },
-            {
-                "stateName": "Andhra Pradesh",
-                "stateCode": "AP",
-                "countryCode": "IN"
-            },
-
-            {
-                "stateName": "Las Vegas",
-                "stateCode": "LS",
-                "countryCode": "US"
-            }
-                     ];
-        $scope.phonePattern = "/^\d+$/";
-        $scope.loadStates = function () {
-            if ($scope.selectedCountry.code == "US") {
-                $scope.phonePattern = "^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$"
-            } else {
-                $scope.phonePattern = "/^\d+$/"
-            }
-
-            $scope.states = [];
-            angular.forEach(states, function (item) {
-                if (item.countryCode == $scope.selectedCountry.code) {
-                    $scope.states.push(item);
-                }
-            });
-        };
-        $scope.groupedStates = states;
-
-
-
-        $scope.checkFields = function () {
-            if ($scope.registerUser.firstName && $scope.registerUser.lastName && $scope.registerUser.age && $scope.registerUser.gender && $scope.registerUser.terms) {
-                $scope.enableButton = true;
-            } else {
-                $scope.enableButton = false;
-            }
-        };
-        
-        $scope.config ={
-            maxDate:0
-        };
-    }]);
 
 angular.module("flipzone", ["ui.router",
                             "login",

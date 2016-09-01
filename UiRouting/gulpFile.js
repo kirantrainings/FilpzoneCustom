@@ -15,7 +15,7 @@ gulp.task('clean', function () {
 gulp.task('concatCss', function () {
     return gulp.src(["bower_components/bootstrap/dist/css/bootstrap.min.css",
                    "bower_components/bootstrap/dist/css/bootstrap.theme.min.css"])
-        .pipe(concatCss("styles/bundle.css"))
+        .pipe(concatCss("bundle.css"))
         .pipe(gulp.dest('./dist/Styles'));
 });
 
